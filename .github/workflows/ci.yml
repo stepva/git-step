@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "ci"]
   pull_request:
     branches: ["main"]
 
@@ -15,7 +15,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Build
         run: cargo build --verbose
+
+      - name: Set git config
+        run: |
+          git config --global user.email "<author@example.com>"
+          git config --global user.name "A U Thor"
+
       - name: Run tests
         run: cargo test --verbose
